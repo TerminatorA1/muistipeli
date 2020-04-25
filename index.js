@@ -143,7 +143,7 @@ function check(a) {
     }
     var cn = a.childNodes // Otetaan <th> elementin sisällä olevat elementit. Tämä palauttaa [text, img, text]
 
-    var imgEl = cn[0] // Otetaan toisena oleva elementti joka on <img>
+    var imgEl = cn[0] // Otetaan ensimmäinen elementti joka on <img>
 	if(cn[0] == undefined){
 		return
 	}
