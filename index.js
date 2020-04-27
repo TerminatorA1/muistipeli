@@ -28,11 +28,18 @@ function sekoita(taulukko) {
 }
 
 // Tehdään meidän rivit
-window.onload = createPlayfield(4, 4)
+window.onload = function(){
+    createPlayfield(4, 4)
+    var script = document.createElement('script');
+    script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
+    script.type = 'text/javascript';
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+
 
 
 function createPlayfield(w, h) {
-	imgs = sekoita(sekoita(imgs).concat(sekoita(imgs))); // Tehdään 16 pitkä array ja sekoitetaan ne käyttämällä Jyrin sekoita() funktiota
+    imgs = sekoita(sekoita(imgs).concat(sekoita(imgs))); // Tehdään 16 pitkä array ja sekoitetaan ne käyttämällä Jyrin sekoita() funktiota
     var imgCount = 0 // Otetaan laskua että mikä index on menossa imgs taulukossa
     for (var i = 0; i < h; i++) { // Tehdään rows
         var row = myTable.insertRow(0) // Luodaan row meidän ruudukkoon
@@ -52,13 +59,25 @@ function createPlayfield(w, h) {
     var cells = document.getElementsByTagName('td'); // Otetaan kaikki Cell elementit
     for (item of cells) {
         item.addEventListener('click', (e) => { // Lisätään jokaiseen Cell elementtiin on.click tapahtuma
-            check(e.target) // 
+            check(e.target) //
         })
     }
 }
 
+function processWin(){
+    var btn = document.getElementById('submitTime');
+    btn.style.display = "block";
+    alert('Onnittelut! Löysit kaikki kuvaparit, jos haluat lähettää aikasi kunniatauluun, paina "Tallena Aika" painiketta')
+    sw.stop()
+}
+
+function copyContent() {
+    document.getElementById("u_score_value").value = document.getElementById("sw-time").innerHTML;
+    }
+
+
 /* Otettu netistä ja muokattu vain että voidaan testata ajan tallenusta,
-oma luodaan loppu versioon 
+oma luodaan loppu versioon
 Linkki sivulle: https://code-boxx.com/simple-javascript-stopwatch/
 */
 var sw = {
@@ -77,9 +96,6 @@ var sw = {
 
     /* [ACTIONS] */
     tick: function() {
-        if (correctAnswers == 8) {
-            sw.stop()
-        }
         // tick() : update display if stopwatch running
 
         // Calculate hours, mins, seconds
@@ -144,34 +160,34 @@ function check(a) {
     var cn = a.childNodes // Otetaan <th> elementin sisällä olevat elementit. Tämä palauttaa [text, img, text]
 
     var imgEl = cn[0] // Otetaan ensimmäinen elementti joka on <img>
-	if(cn[0] == undefined){
-		return
-	}
+    if (cn[0] == undefined) {
+        return
+    }
     // Jos ei ole asetettu ensimmäistä elementtiä, se tarkoittaa että tämä on ensimmäinen valinta käyttäjältä
     if (first == 0) {
         first = imgEl // Asetetaan ensimmäinen valinta <img> elementiksi
         imgEl.style.display = "block" // Asetetaan kuva näkyviin pelaajalle
     } else { // Jos tämä ei ole käyttäjän ensimmäinen valinta
         second = imgEl // Asetetaan toinen valinta <img> elementiksi
-		if(first == second){
-			return
-		}
+        if (first == second) {
+            return
+        }
         imgEl.style.display = "block" // Asetetaan kuva näkyviin
         if (first.src === second.src) { // Jos ensimmäisen ja toisen <img> elementin src url on samat, tarkoittaa että käyttäjä löysi parin
             // Nollataan variablet
             first = 0;
             second = 0;
             correctAnswers += 1
-			if(correctAnswers == 8){
-				sw.stop() // Stops the timer
-			}
+            if (correctAnswers == 8) {
+                processWin()
+            }
             return // Palautetaan tyhjää, eikä aseteta kuvia piiloon enään.
         } else { // Jos kuvat eivät ole samat
             setTimeout(
                 function(first, second) {
                     first.style.display = "none";
                     second.style.display = "none"
-                }, 800, first, second) // first ja second setTimeout funktion lopussa on variablet function():lle 
+                }, 800, first, second) // first ja second setTimeout funktion lopussa on variablet function():lle
 
             // Nollataan variablet
             first = 0;
