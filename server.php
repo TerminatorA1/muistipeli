@@ -78,8 +78,9 @@ if (isset($_POST['lb_add'])) {
     if(isset($_SESSION['username'])){
         $score = mysqli_real_escape_string($db, $_POST['u_score_value']);
         $username = mysqli_real_escape_string($db, $_SESSION['username']);
+        $gamemode = mysqli_real_escape_string($db, $_POST['gamemode']);
 
-        $query = "INSERT INTO `leaderboard`(`username`, `score`) VALUES ('$username','$score')";
+        $query = "INSERT INTO `leaderboard`(`username`, `score`, `gamemode`) VALUES ('$username','$score', '$gamemode')";
         $results = mysqli_query($db, $query) or die("Error: ". mysql_error(). " with query ");
         //header('location: peli.php?success=1')
     }

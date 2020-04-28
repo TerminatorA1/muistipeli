@@ -32,7 +32,7 @@
         <div><a href="honortable">Kunniataulu</a></div>
         <div><a href="index?logout='1'">Kirjaudu Ulos</a></div>
     </div>
-    <form method="post" action="peli?success='1'" onsubmit="copyContent()">
+    <form method="post" action="peli" onsubmit="copyContent()">
         <?php include('errors.php'); ?>
 
         <p>Tervetuloa pelaamaan muistipeliä!</p>
@@ -42,7 +42,13 @@
             </table>
         <br>
         <input type="hidden" name="u_score_value" id="u_score_value">
-
+        <input type="hidden" name="gamemode" id="gamemode">
+        <div id="modeButtons">
+    		<p id="modeText">Valitse pelimuoto</p>
+    		<button type="button" id="4x4" style="display:block" onclick="createPlayfield(this, 4, 4)">4 x 4</button>
+    		<br>
+    		<button type="button" id="6x6" style="display:block" onclick="createPlayfield(this, 6, 6)">6 x 6</button>
+    	</div>
         <button id="submitTime" style="display:none; width:150px; height;50px;" type="submit" name="lb_add">Tallenna Aika</button>
     </form>
     <br>
