@@ -4,55 +4,70 @@
 
 <head>
     <meta charset="utf-8">
-    <style>
-        p {
-            font-size: large;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .flex-container {
-            display: flex;
-            background-color: DodgerBlue;
-        }
+    <title>Kirjaudu Sisään</title>
 
-        .flex-container>div {
-            background-color: #f1f1f1;
-            margin: 10px;
-            padding: 20px;
-            font-size: 30px;
-        }
-    </style>
-    <title>Muistipeli, Kirjautumissivu</title>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="flex-container">
-        <div><a href="index">Alkusivu</a></div>
-        <div><a href="register">Uuden käyttäjän rekisteröinti</a></div>
+    <nav class="navbar navbar-default navbar-expand-lg navbar-light scrolling-navbar fixed-top">
+        <div class="navbar-header d-flex col-1 justify-content-start">
+            <a class="navbar-brand" href="./index"><b>Alkusivu</b></a>
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler mr-auto">
+                <span class="navbar-toggler-icon"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <?php  if (isset($_SESSION['username'])) : ?>
+                <li class="nav-item"><a class="nav-item nav-link" href="peli">Peli</a></li>
+                <?php endif ?>
+                <li class="nav-item"><a class="nav-item nav-link" href="honortable">Kunniataulu</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right ml-auto">
+                <?php  if (isset($_SESSION['username'])) : ?>
+                <li class="nav-item"><a class="nav-item nav-link" href="index?logout='1'">Kirjaudu Ulos</a></li>
+                <?php else : ?>
+                <li class="nav-item"><a class="nav-item nav-link" href="login">Kirjaudu Sisään</a></li>
+                <li class="nav-item"><a class="nav-item nav-link" href="register" style="color:rgb(3, 107, 252)"><b>Luo Käyttäjä!</b></a></li>
+                <?php endif ?>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container login-container">
+        <div class="row login-form-1">
+            <h3>Kirjaudu Sisään</h3>
+            <form action="login" method="post">
+                <div class="form-group">
+                    <?php include('errors.php'); ?>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Käyttäjätunnus" name="username" value="" />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Salasana" name="password" value="" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btnSubmit" name="login_user" value="Kirjaudu Sisään" />
+                </div>
+                <div class="form-group">
+                    <a href="./register" class="newUser">Ei ole käyttäjää?</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <p>Muistipeliin kirjautuminen
-        <p/>
-        <form method="post" action="login">
-            <?php include('errors.php'); ?>
-        	<div class="input-group">
-        		<label>Käyttäjätunnus</label>
-        		<input type="text" name="username" >
-        	</div>
-        	<div class="input-group">
-        		<label>Salasana</label>
-        		<input type="password" name="password">
-        	</div>
-        	<div class="input-group">
-        		<button type="submit" class="btn" name="login_user">Login</button>
-        	</div>
-        	<p>
-        		Ei ole käyttäjää? <a href="register">Luo käyttäjä!</a>
-        	</p>
-        </form>
-        <p>
-            Jos haluat pelata, kirjaudu sisään ja aloita peli! <br>
-            Pelin pelaamista varten sinulla on oltava oma käyttäjätunnus.<br>
-            Jos sinulla ei ole käyttäjätunnuksia, niin valitse "Uuden käyttäjän rekisteröinti".<br>
-            <br>
-        </p>
 
 </html>
