@@ -22,7 +22,7 @@
         <div id="teksti">
             <h1 style="font-size:48px">Error Code: <b style="color:rgb(3, 107, 252)">401</b></h1>
             <h1 class="mr-auto text-center">
-                Sinun pitää olla kirjautunut sisään jotta voit pelata muisti peliä!
+                Sinun pitää olla kirjautunut sisään jotta voit pelata muistipeliä!
                 <br>
                 Kirjaudu sisään tai luo käyttäjätunnus!
             </h1>
